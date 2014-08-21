@@ -1,8 +1,19 @@
 ﻿<Window x:Class="BWHazel.Apps.AltCoinSamples.Hashing.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Hashing" Height="350" Width="525" DataContext="{Binding Source={StaticResource hashesViewModel}}">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Hashes">
+                <StackPanel Orientation="Vertical" Margin="20">
+                    <TextBlock TextAlignment="Center">Enter some text:</TextBlock>
+                    <TextBox x:Name="textBox" Margin="10" />
+                    <Button Width="150" Command="{Binding ComputeHashCommand}" CommandParameter="{Binding Text, ElementName=textBox}">Compute Hash</Button>
+                    <TextBox x:Name="hashTextBox" Margin="10" Text="{Binding Hash}" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Data Checking" />
+            <TabItem Header="Compare" />
+        </TabControl>
     </Grid>
 </Window>
