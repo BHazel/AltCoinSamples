@@ -1,19 +1,50 @@
 ﻿<Window x:Class="BWHazel.Apps.AltCoinSamples.Hashing.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Hashing" Height="350" Width="525" DataContext="{Binding Source={StaticResource hashesViewModel}}">
+        Title="Hashing" Height="400" Width="750" DataContext="{Binding Source={StaticResource hashesViewModel}}">
     <Grid>
-        <TabControl>
-            <TabItem Header="Hashes">
-                <StackPanel Orientation="Vertical" Margin="20">
-                    <TextBlock TextAlignment="Center">Enter some text:</TextBlock>
-                    <TextBox x:Name="textBox" Margin="10" />
-                    <Button Width="150" Command="{Binding ComputeHashCommand}" CommandParameter="{Binding Text, ElementName=textBox}">Compute Hash</Button>
-                    <TextBox x:Name="hashTextBox" Margin="10" Text="{Binding Hash}" />
-                </StackPanel>
-            </TabItem>
-            <TabItem Header="Data Checking" />
-            <TabItem Header="Compare" />
-        </TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Enter Text Sample 1:</TextBlock>
+            <TextBox x:Name="textSample1TextBox" Margin="20,10,20,10" Text="{Binding TextSample1}" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Enter Text Sample 2:</TextBlock>
+            <TextBox x:Name="textSample2TextBox" Margin="20,10,20,10" Text="{Binding TextSample2}" />
+        </StackPanel>
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="150"  Command="{Binding ComputeHashesCommand}">Compute Hashes</Button>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Hash for Sample 1:</TextBlock>
+            <TextBox x:Name="hash1TextBox" Margin="20,10,20,10" Text="{Binding Hash1}" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Hash for Sample 1:</TextBlock>
+            <TextBox x:Name="hash2TextBox" Margin="20,10,20,10" Text="{Binding Hash2}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Data Equality</TextBlock>
+            <TextBlock x:Name="dataEqualityTextBlock" TextAlignment="Center" Margin="0,10,0,0" FontWeight="Bold" Foreground="{Binding DataEqualityColour}" Text="{Binding DataEquality}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Hash Similarity</TextBlock>
+            <TextBlock x:Name="hashSimilarityTextBlock" TextAlignment="Center" Margin="0,10,0,0" FontWeight="Bold" Text="{Binding HashSimilarity}" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0" FontWeight="Bold">Information</TextBlock>
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">Enter some text into the two text fields at the top and click Compute Hashes.</TextBlock>
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">The corresponding SHA256 hash for each text sample is shown directly beneath it.</TextBlock>
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">The Data Equality will be either True or False depending on whether the two hashes are equal.</TextBlock>
+            <TextBlock TextAlignment="Center" Margin="0,10,0,0">The Hash Similarity shows which characters in the two hashes are identical at the same position.</TextBlock>
+        </StackPanel>
     </Grid>
 </Window>
