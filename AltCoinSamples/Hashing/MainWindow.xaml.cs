@@ -17,26 +17,11 @@ namespace BWHazel.Apps.AltCoinSamples.Hashing
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// The Hashes tab view model.
-        /// </summary>
-        private HashesViewModel hashesViewModel;
-
-        /// <summary>
         /// Initialises a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();
-            this.InitialiseViewModels();
-            this.DataContext = this.hashesViewModel;
-        }
-
-        /// <summary>
-        /// Initialises the view models for the main window.
-        /// </summary>
-        private void InitialiseViewModels()
-        {
-            this.hashesViewModel = new HashesViewModel();
         }
     }
 }
