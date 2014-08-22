@@ -51,10 +51,7 @@ namespace BWHazel.Apps.AltCoinSamples.Hashing
         /// <param name="parameter">The parameter for the command.</param>
         public void Execute(object parameter)
         {
-            if (parameter != null)
-            {
-                this.action(parameter);
-            }
+            this.action(parameter);
         }
     }
 }
