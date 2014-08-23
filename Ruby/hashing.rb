@@ -40,8 +40,6 @@ EXAMPLE
 require 'Digest'
 require 'slop'
 
-text1 = ""
-text2 = ""
 bits = 0
 
 def compute_hash(text, bits)
@@ -51,6 +49,25 @@ end
 
 def print_block_length(bits)
 	puts "Block Length = #{bits}"
+end
+
+def print_hash(text, hash)
+	print "\"#{text}\" =>"
+	print "\n\t#{hash}"
+end
+
+def compare_hashes(hash1, hash2)
+	compared_hashes = ""
+	i = 0
+	for i in (0...hash1.length) do
+		if (hash1[i] == hash2[i]) then
+			compared_hashes += hash1[i]
+		else
+			compared_hashes += "_"
+		end
+	end
+
+	return compared_hashes
 end
 
 opts = Slop.parse! do
@@ -69,7 +86,20 @@ if ARGV.length == 1 then
 	puts "\t#{text1_hash}"
 	puts "\t(Algorithm: SHA#{bits})"
 elsif ARGV.length == 2 then
+	text1 = ARGV[0]
+	text2 = ARGV[1]
+	text1_hash = compute_hash(text1, bits)
+	text2_hash = compute_hash(text2, bits)
 
+	puts "Algorithm:"
+	puts "\tSHA#{bits}"
+	puts "#{print_hash(text1, text1_hash)}"
+	puts "#{print_hash(text2, text2_hash)}"
+
+	puts "Data Equality:"
+	puts "\t#{text1_hash == text2_hash}"
+	puts "Hash Similarity:"
+	puts "\t#{compare_hashes(text1_hash, text2_hash)}"
 else
 	puts "Unrecognised parameters."
 	puts "Usage: ./hashing.rb text1 [text2] [-b|--bits bits]"
