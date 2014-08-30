@@ -14,13 +14,27 @@ def solve_block(input, target)
   return [hash, nonce + 1]
 end
 
+def solve_block_limit(input, target)
+  solved = false
+  nonce = 0
+  while (solved == false) do
+    input_nonce = input + nonce.to_s
+    hash = $hasher.reset.update(input_nonce).to_s
+    nonce = nonce + 1
+    if (hash.hex < target) then
+      return [hash, nonce]
+    end
+  end
+end
+
 input = ARGV[0]
-target = ARGV[1]
+target = ARGV[1].hex
 blocks = ARGV[2].to_i
 
 values = [input, 0]
 (1..blocks).each do |b|
-  values = solve_block(values[0], target)
+  #values = solve_block(values[0], target)
+  values = solve_block_limit(values[0], target)
   puts "Block #{b}:"
   puts "  Hash  -> #{values[0]}"
   puts "  Count -> #{values[1]}"
