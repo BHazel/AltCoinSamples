@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿// <copyright file="App.xaml.cs" company="Benedict W. Hazel">
+//     Benedict W. Hazel, 2014
+// </copyright>
+// <author>Benedict W. Hazel</author>
+// <summary>
+//     App: Class for the main app logic.
+// </summary>
 
-namespace Mining
+namespace BWHazel.Apps.AltCoinSamples.Hashing
 {
+    using System.Windows;
+
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Main app logic.
     /// </summary>
     public partial class App : Application
     {
