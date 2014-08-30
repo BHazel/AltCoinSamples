@@ -1,8 +1,9 @@
+require "Slop"
 require "Digest"
 
 $hasher = Digest::MD5.new
 
-def solve_block(input, target)
+def solve_block_zero(input, target)
   hash = ""
   nonce = 0
   while (hash.start_with?(target) == false) do
@@ -25,6 +26,23 @@ def solve_block_limit(input, target)
       return [hash, nonce]
     end
   end
+end
+
+./mining.rb input -b 100 -m zero|limit|text|auto -t target -a
+
+opts = Slop.parse! do
+  on :b, :blocks=, "Blocks", as: Integer
+  on :m, :mode=, "Mode", as: String
+  on :t, :target=, "Target", as: String
+end
+
+blocks = (opts.blocks?) ? opts[:blocks] : 1
+mode = (opts.mode?) ? opts[:mode] : "auto"
+target = (opts.target?) ? opts[:target] : ""
+
+if (mode != "zero" && mode != "limit" && mode != "text" && mode != "auto") then
+  puts "Unrecognised mode parameter: #{mode}"
+  exit(1)
 end
 
 input = ARGV[0]
