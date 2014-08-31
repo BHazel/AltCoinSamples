@@ -6,7 +6,7 @@
 //     App: Class for the main app logic.
 // </summary>
 
-namespace BWHazel.Apps.AltCoinSamples.Hashing
+namespace BWHazel.Apps.AltCoinSamples.Mining
 {
     using System.Windows;
 

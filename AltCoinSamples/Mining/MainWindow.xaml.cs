@@ -6,7 +6,7 @@
 //     MainWindow: Class for the main window logic.
 // </summary>
 
-namespace Mining
+namespace BWHazel.Apps.AltCoinSamples.Mining
 {
     using System.Windows;
 

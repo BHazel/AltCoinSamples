@@ -7,7 +7,7 @@
     <ProjectGuid>{F497CC93-D39A-4F5F-9BBC-DBB200B52499}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mining</RootNamespace>
+    <RootNamespace>BWHazel.Apps.AltCoinSamples.Mining</RootNamespace>
     <AssemblyName>Mining</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
