@@ -30,32 +30,7 @@ def solve_block(input, target, mode)
     end
   end
 end
-=begin
-def solve_block_zero(input, target)
-  hash = ""
-  nonce = 0
-  while (hash.start_with?(target) == false) do
-    input_nonce = input + nonce.to_s
-    hash = $hasher.reset.update(input_nonce).to_s
-    nonce = nonce + 1
-  end
 
-  return [hash, nonce + 1]
-end
-
-def solve_block_limit(input, target)
-  solved = false
-  nonce = 0
-  while (solved == false) do
-    input_nonce = input + nonce.to_s
-    hash = $hasher.reset.update(input_nonce).to_s
-    nonce = nonce + 1
-    if (hash.hex < target) then
-      return [hash, nonce]
-    end
-  end
-end
-=end
 #./mining.rb input -b 100 -m zero|limit|text|auto -t target -a
 
 opts = Slop.parse! do
