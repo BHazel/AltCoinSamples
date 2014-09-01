@@ -28,7 +28,7 @@ def solve_block_limit(input, target)
   end
 end
 
-./mining.rb input -b 100 -m zero|limit|text|auto -t target -a
+#./mining.rb input -b 100 -m zero|limit|text|auto -t target -a
 
 opts = Slop.parse! do
   on :b, :blocks=, "Blocks", as: Integer
