@@ -39,21 +39,17 @@ end
 blocks = (opts.blocks?) ? opts[:blocks] : 1
 mode = (opts.mode?) ? opts[:mode] : "auto"
 target = (opts.target?) ? opts[:target] : ""
+input = ARGV[0]
 
 if (mode != "zero" && mode != "limit" && mode != "text" && mode != "auto") then
   puts "Unrecognised mode parameter: #{mode}"
   exit(1)
 end
 
-input = ARGV[0]
-target = ARGV[1].hex
-blocks = ARGV[2].to_i
-
-values = [input, 0]
+solved_block = [input, 0]
 (1..blocks).each do |b|
-  #values = solve_block(values[0], target)
-  values = solve_block_limit(values[0], target)
+  solved_block = solve_block_zero(solved_block[0], target)
   puts "Block #{b}:"
-  puts "  Hash  -> #{values[0]}"
-  puts "  Count -> #{values[1]}"
+  puts "  Hash  -> #{solved_block[0]}"
+  puts "  Count -> #{solved_block[1]}"
 end
