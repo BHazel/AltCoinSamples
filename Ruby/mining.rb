@@ -7,6 +7,16 @@ def get_hash(input)
   return $hasher.reset.update(input).to_s
 end
 
+def get_auto_hash
+  hash = get_hash(Time.now.to_s)
+  zeros = rand(5)
+    (0..zeros).each do |z|
+    hash[z] = "0"
+  end
+
+  return hash
+end
+
 def solve_block(input, target, mode)
   nonce = 0
   solved = false
@@ -42,7 +52,13 @@ end
 blocks = (opts.blocks?) ? opts[:blocks] : 1
 mode = (opts.mode?) ? opts[:mode] : "auto"
 target = (opts.target?) ? opts[:target] : ""
-input = ARGV[0]
+input = ""
+
+if (ARGV.length == 0) then
+  input = get_auto_hash
+else
+  input = ARGV[0]
+end
 
 if (mode != "zero" && mode != "limit" && mode != "text" && mode != "auto") then
   puts "Unrecognised mode parameter: #{mode}"
@@ -51,10 +67,10 @@ end
 
 if (mode == "limit") then
   target = target.hex
-elsif (mode == "word") then
-  target = get_hash(target)
-else
-  target = Time.now.to_s
+elsif (mode == "text") then
+  target = get_hash(target).hex
+elsif (mode == "auto") then
+  target = get_auto_hash.hex
 end
 
 solved_block = [input, 0]
