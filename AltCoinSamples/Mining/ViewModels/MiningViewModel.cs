@@ -9,6 +9,7 @@
 namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
 {
     using System.ComponentModel;
+    using System.Security.Cryptography;
     using BWHazel.Apps.AltCoinSamples.Mining.Models;
 
     /// <summary>
@@ -17,8 +18,31 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
     public class MiningViewModel : INotifyPropertyChanged
     {
         /// <summary>
+        /// The Mining model.
+        /// </summary>
+        private MiningModel mining;
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="MiningViewModel"/> class.
+        /// </summary>
+        public MiningViewModel()
+        {
+            this.mining = new MiningModel(new MD5CryptoServiceProvider());
+            this.PropertyChanged += this.PropertyChangedHandler;
+        }
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Handles the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">Information relating to the event.</param>
+        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+        }
     }
 }
