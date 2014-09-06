@@ -3,7 +3,7 @@
 // </copyright>
 // <author>Benedict W. Hazel</author>
 // <summary>
-//     HashesViewModel: Class for the Hashes tab view model.
+//     HashesViewModel: Class for the Hashes window view model.
 // </summary>
 
 namespace BWHazel.Apps.AltCoinSamples.Hashing.ViewModels
@@ -15,7 +15,7 @@ namespace BWHazel.Apps.AltCoinSamples.Hashing.ViewModels
     using BWHazel.Apps.AltCoinSamples.Hashing.Models;
 
     /// <summary>
-    /// Hashes tab view model.
+    /// Hashes window view model.
     /// </summary>
     public class HashesViewModel : INotifyPropertyChanged
     {
