@@ -9,7 +9,9 @@
 namespace BWHazel.Apps.AltCoinSamples.Mining.Models
 {
     using System;
+    using System.Numerics;
     using System.Security.Cryptography;
+    using System.Text;
 
     /// <summary>
     /// Simulates the mining process.
@@ -33,12 +35,57 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         /// <summary>
         /// Solves a block with a specified input and target criterion.
         /// </summary>
-        /// <param name="target">The target.</param>
         /// <param name="input">The input.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="limitTarget"><c>true</c> if the target is a string representation of the target hash.</param>
         /// <returns>The hash meeting the target criterion and the hash count required to meet it as a <see cref="Tuple{T1, T2}"/>.</returns>
-        public Tuple<string, int> SolveBlock(string target, string input)
+        public Tuple<string, long> SolveBlock(string input, string target, bool limitTarget)
         {
-            return new Tuple<string, int>(string.Empty, 0);
+            long nonce = 0;
+            bool blockSolved = false;
+            string hash = string.Empty;
+            while (blockSolved == false)
+            {
+                string inputWithNonce = string.Concat(input, nonce.ToString());
+                hash = this.GetHexadecimalHash(inputWithNonce);
+                nonce += 1;
+
+                if (limitTarget == true)
+                {
+                    BigInteger targetNumeric = BigInteger.Parse(target);
+                    BigInteger hashNumeric = BigInteger.Parse(hash);
+                    if (hashNumeric < targetNumeric)
+                    {
+                        blockSolved = true;
+                    }
+                }
+                else
+                {
+                    if (hash.StartsWith(target))
+                    {
+                        blockSolved = true;
+                    }
+                }
+            }
+
+            return new Tuple<string, long>(hash, nonce);
+        }
+
+        /// <summary>
+        /// Computes the hash for the specified text.
+        /// </summary>
+        /// <param name="input">The text.</param>
+        /// <returns>The hexadecimal representation of the hash as a string.</returns>
+        private string GetHexadecimalHash(string input)
+        {
+            byte[] hashBytes = HashAlgorithm.ComputeHash(Encoding.ASCII.GetBytes(input));
+            StringBuilder hexadecimalHashBuilder = new StringBuilder();
+            foreach (byte b in hashBytes)
+            {
+                hexadecimalHashBuilder.AppendFormat("{0:x2}", b);
+            }
+
+            return hexadecimalHashBuilder.ToString();
         }
     }
 }
