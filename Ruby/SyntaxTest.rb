@@ -27,10 +27,10 @@ class SyntaxClass < Test::Unit::TestCase
   end
 
   def test_hashing
-    assert_equal syntax_ok, check_syntax("hashing.rb")
+    assert_equal syntax_ok, check_syntax("Ruby/hashing.rb")
   end
 
   def test_mining
-    assert_equal syntax_ok, check_syntax("mining.rb")
+    assert_equal syntax_ok, check_syntax("Ruby/mining.rb")
   end
 end
