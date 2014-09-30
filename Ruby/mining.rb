@@ -20,6 +20,7 @@ end
 def solve_block(input, target, mode)
   nonce = 0
   solved = false
+  hash = ""
   loop do
     input_with_nonce = input + nonce.to_s
     hash = get_hash(input_with_nonce)
