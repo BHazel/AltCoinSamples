@@ -8,9 +8,11 @@
 
 namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Security.Cryptography;
+    using BWHazel.Apps.AltCoinSamples.Common;
     using BWHazel.Apps.AltCoinSamples.Mining.Models;
 
     /// <summary>
@@ -37,6 +39,11 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         /// The number of blocks.
         /// </summary>
         private int blocks;
+
+        /// <summary>
+        /// The command to solve the blocks.
+        /// </summary>
+        private Command solveBlocksCommand;
 
         /// <summary>
         /// The Mining model.
@@ -184,6 +191,31 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                     this.solvedBlocks = value;
                     this.OnPropertyChanged("SolvedBlocks");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to solve the blocks.
+        /// </summary>
+        public Command SolveBlocksCommand
+        {
+            get
+            {
+                if (this.solveBlocksCommand == null)
+                {
+                    this.solveBlocksCommand = new Command((data) =>
+                    {
+                        bool isLimitTarget = (this.TargetType == TargetType.Limit);
+                        Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
+                        for (int i = 1; i <= this.Blocks; i++)
+                        {
+                            solvedBlock = this.mining.SolveBlock(solvedBlock.Item1, this.Target, isLimitTarget);
+                            BlockInfo solvedBlockInfo = new BlockInfo(i, solvedBlock.Item1, solvedBlock.Item2);
+                        }
+                    });
+                }
+
+                return this.solveBlocksCommand;
             }
         }
 

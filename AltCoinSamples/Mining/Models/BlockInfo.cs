@@ -26,7 +26,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         /// <summary>
         /// The number of attempts to solve the block.
         /// </summary>
-        private int attempts;
+        private long attempts;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="BlockInfo"/> struct.
@@ -34,7 +34,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         /// <param name="id">The block ID.</param>
         /// <param name="successfulHash">The successful hash which solved the block.</param>
         /// <param name="attempts">The number of attempts to solve the block.</param>
-        public BlockInfo(int id, string successfulHash, int attempts)
+        public BlockInfo(int id, string successfulHash, long attempts)
         {
             this.id = id;
             this.successfulHash = successfulHash;
@@ -62,7 +62,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         /// <summary>
         /// Gets or sets the number of attempts to solve the block.
         /// </summary>
-        public int Attempts
+        public long Attempts
         {
             get { return this.attempts; }
             set { this.attempts = value; }
