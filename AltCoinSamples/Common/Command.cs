@@ -6,7 +6,7 @@
 //     Command: Class for a basic command.
 // </summary>
 
-namespace BWHazel.Apps.AltCoinSamples.Hashing
+namespace BWHazel.Apps.AltCoinSamples.Common
 {
     using System;
     using System.Windows.Input;

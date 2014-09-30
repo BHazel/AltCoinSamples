@@ -12,6 +12,7 @@ namespace BWHazel.Apps.AltCoinSamples.Hashing.ViewModels
     using System.Security.Cryptography;
     using System.Text;
     using System.Windows.Media;
+    using BWHazel.Apps.AltCoinSamples.Common;
     using BWHazel.Apps.AltCoinSamples.Hashing.Models;
 
     /// <summary>
