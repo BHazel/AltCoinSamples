@@ -158,6 +158,11 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         {
             get
             {
+                if (this.blocks == 0)
+                {
+                    this.blocks = 1;
+                }
+
                 return this.blocks;
             }
 
@@ -217,7 +222,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the command to solve the blocks.
+        /// Gets the command to solve the blocks.
         /// </summary>
         public Command SolveBlocksCommand
         {
@@ -229,7 +234,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                     {
                         Task.Run(() =>
                         {
-                            bool isLimitTarget = (this.TargetType == TargetType.Limit);
+                            bool isLimitTarget = this.TargetType == TargetType.Limit;
                             Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
                             Action<BlockInfo> collectionAddMethod = this.SolvedBlocks.Add;
                             for (int i = 1; i <= this.Blocks; i++)
@@ -240,7 +245,6 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                                 this.CurrentBlock = i;
                             }
                         });
-
                     });
                 }
 
