@@ -80,27 +80,29 @@ else
 	bits = opts[:bits]
 end
 
-if ARGV.length == 1 then
-	text1 = ARGV[0]
-	text1_hash = compute_hash(text1, bits)
-	puts "\t#{text1_hash}"
-	puts "\t(Algorithm: SHA#{bits})"
-elsif ARGV.length == 2 then
-	text1 = ARGV[0]
-	text2 = ARGV[1]
-	text1_hash = compute_hash(text1, bits)
-	text2_hash = compute_hash(text2, bits)
+text1_hash = ""
+text2_hash = ""
 
+unless ARGV.length == 1 || ARGV.length == 2
+	puts "Unrecognised parameters."
+	puts "Usage: ./hashing.rb text1 [text2] [-b|--bits bits]"
+	exit(1)
+end
+
+if ARGV.length >= 1 then
+	text1 = ARGV[0]
+	text1_hash = compute_hash(text1, bits)
 	puts "Algorithm:"
 	puts "\tSHA#{bits}"
 	puts "#{print_hash(text1, text1_hash)}"
-	puts "#{print_hash(text2, text2_hash)}"
+end
 
+if ARGV.length == 2 then
+	text2 = ARGV[1]
+	text2_hash = compute_hash(text2, bits)
+	puts "#{print_hash(text2, text2_hash)}"
 	puts "Data Equality:"
 	puts "\t#{text1_hash == text2_hash}"
 	puts "Hash Similarity:"
 	puts "\t#{compare_hashes(text1_hash, text2_hash)}"
-else
-	puts "Unrecognised parameters."
-	puts "Usage: ./hashing.rb text1 [text2] [-b|--bits bits]"
 end
