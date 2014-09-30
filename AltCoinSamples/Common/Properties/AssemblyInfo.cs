@@ -1,5 +1,12 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿// <copyright file="AssemblyInfo.cs" company="Benedict W. Hazel">
+//     Benedict W. Hazel, 2014
+// </copyright>
+// <author>Benedict W. Hazel</author>
+// <summary>
+//     AssemblyInfo: Class for info on the Hashing assembly.
+// </summary>
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
