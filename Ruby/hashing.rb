@@ -40,22 +40,40 @@ EXAMPLE
 require 'Digest'
 require 'slop'
 
-bits = 0
+=begin
+Summary: Computes the hash of the specified text using the bit length.
+ 		text		String		The text to compute a hash of.
+		bits 		Integer 	The hash length in bits.
 
+Returns: The computed hash (String)
+=end
 def compute_hash(text, bits)
 	sha = Digest::SHA2.new(bits)
 	return sha.reset.update(text).to_s
 end
 
-def print_block_length(bits)
-	puts "Block Length = #{bits}"
-end
-
+=begin
+Summary: Prints the hash to the screen.
+		text		String		The original text.
+		hash		String		The hash of the text.
+=end
 def print_hash(text, hash)
 	print "\"#{text}\" =>"
 	print "\n\t#{hash}"
 end
 
+=begin
+Summary: Compares two hashes character by character.
+		hash1		String		The first hash.
+		hash2		String		The second hash.
+
+Remarks: This method produces a string equal in length to the two
+		input hashes.  An underscore (_) is placed where the characters
+		at that position in the hashes are not equal.  If the character
+		is equal it is placed into the new string.
+
+Returns: The character comparison of the hashes
+=end
 def compare_hashes(hash1, hash2)
 	compared_hashes = ""
 	i = 0
@@ -70,6 +88,9 @@ def compare_hashes(hash1, hash2)
 	return compared_hashes
 end
 
+bits = 0
+
+# Parse command-line arguments.
 opts = Slop.parse! do
 	on :b, :bits=, "Bits", as: Integer
 end
@@ -80,15 +101,17 @@ else
 	bits = opts[:bits]
 end
 
-text1_hash = ""
-text2_hash = ""
-
+# Check for the correct number of arguments.
 unless ARGV.length == 1 || ARGV.length == 2
 	puts "Unrecognised parameters."
 	puts "Usage: ./hashing.rb text1 [text2] [-b|--bits bits]"
 	exit(1)
 end
 
+text1_hash = ""
+text2_hash = ""
+
+# Compute hash if only one input is provided.
 if ARGV.length >= 1 then
 	text1 = ARGV[0]
 	text1_hash = compute_hash(text1, bits)
@@ -97,6 +120,8 @@ if ARGV.length >= 1 then
 	puts "#{print_hash(text1, text1_hash)}"
 end
 
+# Compute the second hash if a second input is provided and print
+# comparison information.
 if ARGV.length == 2 then
 	text2 = ARGV[1]
 	text2_hash = compute_hash(text2, bits)
