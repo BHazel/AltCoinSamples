@@ -45,7 +45,7 @@ Summary: Computes the hash of the specified text using the bit length.
  		text		String		The text to compute a hash of.
 		bits 		Integer 	The hash length in bits.
 
-Returns: The computed hash (String)
+Returns: The computed hash (String).
 =end
 def compute_hash(text, bits)
 	sha = Digest::SHA2.new(bits)
@@ -72,7 +72,7 @@ Remarks: This method produces a string equal in length to the two
 		at that position in the hashes are not equal.  If the character
 		is equal it is placed into the new string.
 
-Returns: The character comparison of the hashes
+Returns: The character comparison of the hashes (String).
 =end
 def compare_hashes(hash1, hash2)
 	compared_hashes = ""
