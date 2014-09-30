@@ -9,10 +9,11 @@
 namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Security.Cryptography;
+    using System.Threading.Tasks;
+    using System.Windows;
     using BWHazel.Apps.AltCoinSamples.Common;
     using BWHazel.Apps.AltCoinSamples.Mining.Models;
 
@@ -42,6 +43,11 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         private int blocks;
 
         /// <summary>
+        /// The current block being solved.
+        /// </summary>
+        private int currentBlock;
+
+        /// <summary>
         /// The command to solve the blocks.
         /// </summary>
         private Command solveBlocksCommand;
@@ -63,7 +69,6 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         {
             this.mining = new MiningModel(new MD5CryptoServiceProvider());
             this.PropertyChanged += this.PropertyChangedHandler;
-            this.solvedBlocks = new Dictionary<string, long>();
         }
 
         /// <summary>
@@ -167,6 +172,26 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the current block being solved.
+        /// </summary>
+        public int CurrentBlock
+        {
+            get
+            {
+                return this.currentBlock;
+            }
+
+            set
+            {
+                if (value != this.currentBlock)
+                {
+                    this.currentBlock = value;
+                    this.OnPropertyChanged("CurrentBlock");
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the solved blocks.
         /// </summary>
         public ObservableCollection<BlockInfo> SolvedBlocks
@@ -202,14 +227,20 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                 {
                     this.solveBlocksCommand = new Command((data) =>
                     {
-                        bool isLimitTarget = (this.TargetType == TargetType.Limit);
-                        Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
-                        for (int i = 1; i <= this.Blocks; i++)
+                        Task.Run(() =>
                         {
-                            solvedBlock = this.mining.SolveBlock(solvedBlock.Item1, this.Target, isLimitTarget);
-                            BlockInfo solvedBlockInfo = new BlockInfo(i, solvedBlock.Item1, solvedBlock.Item2);
-                            this.SolvedBlocks.Add(solvedBlockInfo);
-                        }
+                            bool isLimitTarget = (this.TargetType == TargetType.Limit);
+                            Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
+                            Action<BlockInfo> collectionAddMethod = this.SolvedBlocks.Add;
+                            for (int i = 1; i <= this.Blocks; i++)
+                            {
+                                solvedBlock = this.mining.SolveBlock(solvedBlock.Item1, this.Target, isLimitTarget);
+                                BlockInfo solvedBlockInfo = new BlockInfo(i, solvedBlock.Item1, solvedBlock.Item2);
+                                Application.Current.Dispatcher.BeginInvoke(collectionAddMethod, solvedBlockInfo);
+                                this.CurrentBlock = i;
+                            }
+                        });
+
                     });
                 }
 
