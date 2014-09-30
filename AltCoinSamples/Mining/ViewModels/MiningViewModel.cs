@@ -10,6 +10,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Security.Cryptography;
     using BWHazel.Apps.AltCoinSamples.Common;
@@ -53,7 +54,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         /// <summary>
         /// The solved blocks.
         /// </summary>
-        private Dictionary<string, long> solvedBlocks;
+        private ObservableCollection<BlockInfo> solvedBlocks;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="MiningViewModel"/> class.
@@ -168,17 +169,13 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         /// <summary>
         /// Gets or sets the solved blocks.
         /// </summary>
-        /// <remarks>
-        /// Block data are stored in a dictionary with the successful hash as the key and the attempts to
-        /// solve the block as the value.
-        /// </remarks>
-        public Dictionary<string, long> SolvedBlocks
+        public ObservableCollection<BlockInfo> SolvedBlocks
         {
             get
             {
                 if (this.solvedBlocks == null)
                 {
-                    this.solvedBlocks = new Dictionary<string, long>();
+                    this.solvedBlocks = new ObservableCollection<BlockInfo>();
                 }
 
                 return this.solvedBlocks;
@@ -211,6 +208,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                         {
                             solvedBlock = this.mining.SolveBlock(solvedBlock.Item1, this.Target, isLimitTarget);
                             BlockInfo solvedBlockInfo = new BlockInfo(i, solvedBlock.Item1, solvedBlock.Item2);
+                            this.SolvedBlocks.Add(solvedBlockInfo);
                         }
                     });
                 }
