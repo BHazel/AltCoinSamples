@@ -5,7 +5,7 @@ NAME
 	Hashing
 
 SYNOPSIS
-	./hashing.rb text1 [text2] [-h bits]
+	./hashing.rb text1 [text2] [-b bits]
 
 DESCRIPTION
 	Demonstrates hashing and its uses using the SHA2 hash algorithm.
