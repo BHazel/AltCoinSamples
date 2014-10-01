@@ -48,7 +48,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         private int currentBlock;
 
         /// <summary>
-        /// The flag to determine if controls are enabled.
+        /// The value indicating whether controls are enabled.
         /// </summary>
         private bool controlsEnabled;
 
@@ -203,7 +203,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the flag to determine if controls are enabled.
+        /// Gets or sets a value indicating whether controls are enabled.
         /// </summary>
         public bool ControlsEnabled
         {
