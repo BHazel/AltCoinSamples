@@ -48,6 +48,11 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         private int currentBlock;
 
         /// <summary>
+        /// The flag to determine if controls are enabled.
+        /// </summary>
+        private bool controlsEnabled;
+
+        /// <summary>
         /// The command to solve the blocks.
         /// </summary>
         private Command solveBlocksCommand;
@@ -69,6 +74,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         {
             this.mining = new MiningModel(new MD5CryptoServiceProvider());
             this.PropertyChanged += this.PropertyChangedHandler;
+            this.ControlsEnabled = true;
         }
 
         /// <summary>
@@ -197,6 +203,26 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the flag to determine if controls are enabled.
+        /// </summary>
+        public bool ControlsEnabled
+        {
+            get
+            {
+                return this.controlsEnabled;
+            }
+
+            set
+            {
+                if (value != this.controlsEnabled)
+                {
+                    this.controlsEnabled = value;
+                    this.OnPropertyChanged("ControlsEnabled");
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the solved blocks.
         /// </summary>
         public ObservableCollection<BlockInfo> SolvedBlocks
@@ -236,6 +262,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
 
                         Task.Run(() =>
                         {
+                            this.ControlsEnabled = false;
                             bool isLimitTarget = this.TargetType == TargetType.Limit;
                             Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
                             Action<BlockInfo> collectionAddMethod = this.SolvedBlocks.Add;
@@ -246,6 +273,8 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                                 Application.Current.Dispatcher.BeginInvoke(collectionAddMethod, solvedBlockInfo);
                                 this.CurrentBlock = i;
                             }
+
+                            this.ControlsEnabled = true;
                         });
                     });
                 }
@@ -273,6 +302,14 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         /// <param name="e">Information relating to the event.</param>
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
+            switch (e.PropertyName)
+            {
+                case "Blocks":
+                    this.CurrentBlock = 0;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
