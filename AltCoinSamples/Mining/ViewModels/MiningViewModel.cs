@@ -158,7 +158,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         {
             get
             {
-                if (this.blocks == 0)
+                if (this.blocks < 1)
                 {
                     this.blocks = 1;
                 }
@@ -232,6 +232,8 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                 {
                     this.solveBlocksCommand = new Command((data) =>
                     {
+                        this.SolvedBlocks.Clear();
+
                         Task.Run(() =>
                         {
                             bool isLimitTarget = this.TargetType == TargetType.Limit;
