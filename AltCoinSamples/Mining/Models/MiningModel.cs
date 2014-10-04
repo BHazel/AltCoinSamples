@@ -47,7 +47,8 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
             while (blockSolved == false)
             {
                 string inputWithNonce = string.Concat(input, nonce.ToString());
-                hash = this.GetHexadecimalHash(inputWithNonce);
+                byte[] inputWithNonceHash = this.ComputeHash(inputWithNonce);
+                hash = this.GetHexadecimalRepresentation(inputWithNonceHash);
                 nonce += 1;
 
                 if (limitTarget == true)
@@ -82,15 +83,14 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         }
 
         /// <summary>
-        /// Computes the hash for the specified text.
+        /// Converts the hash from byte array into its hexadecimal representation.
         /// </summary>
-        /// <param name="input">The text.</param>
+        /// <param name="hash">The hash.</param>
         /// <returns>The hexadecimal representation of the hash as a string.</returns>
-        private string GetHexadecimalHash(string input)
+        public string GetHexadecimalRepresentation(byte[] hash)
         {
-            byte[] hashBytes = this.ComputeHash(input);
             StringBuilder hexadecimalHashBuilder = new StringBuilder();
-            foreach (byte b in hashBytes)
+            foreach (byte b in hash)
             {
                 hexadecimalHashBuilder.AppendFormat("{0:x2}", b);
             }
