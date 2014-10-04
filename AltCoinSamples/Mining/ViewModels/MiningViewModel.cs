@@ -256,7 +256,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                         this.SolvedBlocks.Clear();
                         if (this.TargetType == TargetType.Auto)
                         {
-                            this.Target = this.GetAutoTarget();
+                            this.Target = this.GetAutoHash();
                         }
                         else if (this.TargetType == TargetType.Text)
                         {
@@ -323,7 +323,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         /// replacing the first characters.
         /// </remarks>
         /// <returns>The target when the <see cref="TargetType"/> is set to Auto.</returns>
-        private string GetAutoTarget()
+        private string GetAutoHash()
         {
             string dateHash = Convert.ToBase64String(this.mining.ComputeHash(DateTime.Now.ToString()));
             Random random = new Random(DateTime.Now.Millisecond);
