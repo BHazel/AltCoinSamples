@@ -72,13 +72,23 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         }
 
         /// <summary>
+        /// Computes the hash of the specified text.
+        /// </summary>
+        /// <param name="text">The text to compute the hash of.</param>
+        /// <returns>The hash as a byte array.</returns>
+        public byte[] ComputeHash(string text)
+        {
+            return this.HashAlgorithm.ComputeHash(Encoding.ASCII.GetBytes(text));
+        }
+
+        /// <summary>
         /// Computes the hash for the specified text.
         /// </summary>
         /// <param name="input">The text.</param>
         /// <returns>The hexadecimal representation of the hash as a string.</returns>
         private string GetHexadecimalHash(string input)
         {
-            byte[] hashBytes = HashAlgorithm.ComputeHash(Encoding.ASCII.GetBytes(input));
+            byte[] hashBytes = this.ComputeHash(input);
             StringBuilder hexadecimalHashBuilder = new StringBuilder();
             foreach (byte b in hashBytes)
             {

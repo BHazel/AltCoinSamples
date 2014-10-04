@@ -139,11 +139,6 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         {
             get
             {
-                if (this.targetType == 0)
-                {
-                    this.targetType = TargetType.Zero;
-                }
-
                 return this.targetType;
             }
 
@@ -259,11 +254,19 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                     this.solveBlocksCommand = new Command((data) =>
                     {
                         this.SolvedBlocks.Clear();
+                        if (this.TargetType == TargetType.Auto)
+                        {
+                            this.Target = this.GetAutoTarget();
+                        }
+                        else if (this.TargetType == TargetType.Text)
+                        {
+                            this.Target = Convert.ToBase64String(this.mining.ComputeHash(this.Target));
+                        }
 
                         Task.Run(() =>
                         {
                             this.ControlsEnabled = false;
-                            bool isLimitTarget = this.TargetType == TargetType.Limit;
+                            bool isLimitTarget = this.TargetType != TargetType.Zero;
                             Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
                             Action<BlockInfo> collectionAddMethod = this.SolvedBlocks.Add;
                             for (int i = 1; i <= this.Blocks; i++)
@@ -310,6 +313,23 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// Gets the target when the <see cref="TargetType"/> is set to Auto.
+        /// </summary>
+        /// <remarks>
+        /// The target is based on the hash of the current date and time with a random number of zeros
+        /// replacing the first characters.
+        /// </remarks>
+        /// <returns>The target when the <see cref="TargetType"/> is set to Auto.</returns>
+        private string GetAutoTarget()
+        {
+            string dateHash = Convert.ToBase64String(this.mining.ComputeHash(DateTime.Now.ToString()));
+            Random random = new Random(DateTime.Now.Millisecond);
+            int zeros = random.Next(5);
+            string zeroString = string.Empty.PadLeft(zeros, '0');
+            return dateHash.Replace(dateHash.Substring(0, zeros), zeroString);
         }
     }
 }
