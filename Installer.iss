@@ -29,5 +29,4 @@ Source: "Ruby\mining.rb"; DestDir: "{app}\Ruby"; Components: ruby
 [Icons]
 Name: "{group}\Hashing"; Filename: "{app}\WPF\Hashing.exe"
 Name: "{group}\Mining"; Filename: "{app}\WPF\Mining.exe"
-Name: "{group}\Ruby Scripts"; Filename: "{app}\Ruby"; Flags: createonlyiffileexists
 Name: "{group}\Uninstall AltCoin Samples"; Filename: "{uninstallexe}"
