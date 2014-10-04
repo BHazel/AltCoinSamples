@@ -25,6 +25,8 @@ Source: "AltCoinSamples\Mining\bin\Release\Mining.exe"; DestDir: "{app}\WPF"; Co
 Source: "AltCoinSamples\Mining\bin\Release\Mining.exe.config"; DestDir: "{app}\WPF"; Components: samples
 Source: "Ruby\hashing.rb"; DestDir: "{app}\Ruby"; Components: ruby
 Source: "Ruby\mining.rb"; DestDir: "{app}\Ruby"; Components: ruby
+Source: "Ruby\hashing.pdf"; DestDir: "{app}\Ruby"; Components: ruby
+Source: "Ruby\mining.pdf"; DestDir: "{app}\Ruby"; Components: ruby
 
 [Icons]
 Name: "{group}\Hashing"; Filename: "{app}\WPF\Hashing.exe"
