@@ -19,9 +19,15 @@ Name: "ruby"; Description: "Ruby Scripts - Ruby versions of the sample programs 
 
 [Files]
 Source: "AltCoinSamples\Common\bin\Release\AltCoinSamples.Common.dll"; DestDir: "{app}\WPF"; Components: samples
-Source: "AltCoinSamples\Mining\bin\Release\Mining.exe"; DestDir: "{app}\WPF"; Components: samples
-Source: "AltCoinSamples\Mining\bin\Release\Mining.exe.config"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Hashing\bin\Release\Hashing.exe"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Hashing\bin\Release\Hashing.exe.config"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Mining\bin\Release\Mining.exe"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Mining\bin\Release\Mining.exe.config"; DestDir: "{app}\WPF"; Components: samples
 Source: "Ruby\hashing.rb"; DestDir: "{app}\Ruby"; Components: ruby
 Source: "Ruby\mining.rb"; DestDir: "{app}\Ruby"; Components: ruby
+
+[Icons]
+Name: "{group}\Hashing"; Filename: "{app}\WPF\Hashing.exe"
+Name: "{group}\Mining"; Filename: "{app}\WPF\Mining.exe"
+Name: "{group}\Ruby Scripts"; Filename: "{app}\Ruby"; Flags: createonlyiffileexists
+Name: "{group}\Uninstall AltCoin Samples"; Filename: "{uninstallexe}"
