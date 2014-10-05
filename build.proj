@@ -9,12 +9,18 @@
     <MSBuild Projects=".\AltCoinSamples\Mining\Mining.csproj" Properties="Configuration=Release" />
   </Target>
   <Target Name="RubyScripts">
-    <!-- Check Ruby scripts for errors -->
+    <!-- Check Ruby scripts for syntax errors -->
+    <!-- Requires: Ruby -->
   </Target>
   <Target Name="HelpFiles">
-    <!-- Build help files -->
+    <!-- Build PDF help files from Markdown source -->
+    <!-- Requires: Node.js -->
+    <Exec Command="npm install markdown-pdf" />
+    <Exec Command=".\node_modules\.bin\markdown-pdf Ruby\hashing.md -o Ruby\hashing.pdf" />
+    <Exec Command=".\node_modules\.bin\markdown-pdf Ruby\mining.md -o Ruby\mining.pdf" />
   </Target>
   <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
     <!-- Create installer -->
+    <!-- Requires: Inno Setup -->
   </Target>
 </Project>
