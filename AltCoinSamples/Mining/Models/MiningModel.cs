@@ -9,6 +9,7 @@
 namespace BWHazel.Apps.AltCoinSamples.Mining.Models
 {
     using System;
+    using System.Globalization;
     using System.Numerics;
     using System.Security.Cryptography;
     using System.Text;
@@ -53,8 +54,11 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
 
                 if (limitTarget == true)
                 {
-                    BigInteger targetNumeric = BigInteger.Parse(target);
-                    BigInteger hashNumeric = BigInteger.Parse(hash);
+                    string initialZeroTarget = string.Concat("0", target);
+                    string initialZeroHash = string.Concat("0", hash);
+
+                    BigInteger targetNumeric = BigInteger.Parse(initialZeroTarget, NumberStyles.HexNumber);
+                    BigInteger hashNumeric = BigInteger.Parse(initialZeroHash, NumberStyles.HexNumber);
                     if (hashNumeric < targetNumeric)
                     {
                         blockSolved = true;
