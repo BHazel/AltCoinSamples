@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="All" DependsOnTargets="Installer">
+    <!-- Create installer -->
+  </Target>
+  <Target Name="WpfApps">
+    <!-- Build WPF apps -->
+  </Target>
+  <Target Name="RubyScripts">
+    <!-- Check Ruby scripts for errors -->
+  </Target>
+  <Target Name="HelpFiles">
+    <!-- Build help files -->
+  </Target>
+  <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
+    <!-- Create installer -->
+  </Target>
+</Project>
