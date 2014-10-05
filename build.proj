@@ -5,6 +5,8 @@
   </Target>
   <Target Name="WpfApps">
     <!-- Build WPF apps -->
+    <MSBuild Projects=".\AltCoinSamples\Hashing\Hashing.csproj" Properties="Configuration=Release" />
+    <MSBuild Projects=".\AltCoinSamples\Mining\Mining.csproj" Properties="Configuration=Release" />
   </Target>
   <Target Name="RubyScripts">
     <!-- Check Ruby scripts for errors -->
