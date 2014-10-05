@@ -333,6 +333,9 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
             return dateHashHex.Replace(dateHashHex.Substring(0, zeros), zeroString);
         }
 
+        /// <summary>
+        /// Check the target for errors and set its value if required.
+        /// </summary>
         private void CheckTarget()
         {
             if (this.TargetType != TargetType.Auto && this.Target == string.Empty)
