@@ -23,7 +23,8 @@ OPTIONS
                 time and use it as the upper limit.
       - limit   Use the specified target as the upper limit to
                 which computed hashes must be lower (as used by
-                cryptocurrencies).
+                cryptocurrencies).  This should be a 128-bit
+                hexadecimal number.
       - text    Use the hash of the target, which can be any text
                 value.
       - zero    Specified target is a string of zeros to which the
@@ -58,7 +59,7 @@ USAGE
 
   ./mining.rb text1 -m zero -t 0000 -b 100
     Solves 100 blocks with [text1] as the initial seed input and
-    the target in zero mode; computed hashes must be equal to the
+    the target in zero mode; computed hashes must start with the
     string of zeros specified in the target.
 =end
 
