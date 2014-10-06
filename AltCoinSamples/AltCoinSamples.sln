@@ -14,6 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\hashing.md = Documentation\hashing.md
 		Documentation\hashing.png = Documentation\hashing.png
 		Documentation\hashingresult.png = Documentation\hashingresult.png
+		Documentation\mining.md = Documentation\mining.md
+		Documentation\mining.png = Documentation\mining.png
+		Documentation\miningresult.png = Documentation\miningresult.png
 	EndProjectSection
 EndProject
 Global
