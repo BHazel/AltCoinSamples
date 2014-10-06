@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="All" DependsOnTargets="Installer">
+    <!-- Create installer -->
+  </Target>
+  <Target Name="WpfApps">
+    <!-- Build WPF apps -->
+    <MSBuild Projects=".\AltCoinSamples\Hashing\Hashing.csproj" Properties="Configuration=Release" />
+    <MSBuild Projects=".\AltCoinSamples\Mining\Mining.csproj" Properties="Configuration=Release" />
+  </Target>
+  <Target Name="RubyScripts">
+    <!-- Check Ruby scripts for syntax errors -->
+    <!-- Requires: Ruby -->
+    <Exec Command="rake" />
+  </Target>
+  <Target Name="HelpFiles">
+    <!-- Build PDF help files from Markdown source -->
+    <!-- Requires: Node.js -->
+    <Exec Command="npm install markdown-pdf" />
+    <Exec Command=".\node_modules\.bin\markdown-pdf Ruby\hashing.md -o Ruby\hashing.pdf" />
+    <Exec Command=".\node_modules\.bin\markdown-pdf Ruby\mining.md -o Ruby\mining.pdf" />
+  </Target>
+  <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
+    <!-- Create installer -->
+    <!-- Requires: Inno Setup -->
+  </Target>
+</Project>
