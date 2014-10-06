@@ -16,9 +16,11 @@
   <Target Name="HelpFiles">
     <!-- Build PDF help files from Markdown source -->
     <!-- Requires: Node.js -->
-    <Exec Command="npm install markdown-pdf" />
-    <Exec Command=".\node_modules\.bin\markdown-pdf Ruby\hashing.md -o Ruby\hashing.pdf" />
-    <Exec Command=".\node_modules\.bin\markdown-pdf Ruby\mining.md -o Ruby\mining.pdf" />
+    <Exec Command="npm install marked" />
+    <Exec WorkingDirectory=".\AltCoinSamples\Documentation" Command="..\..\node_modules\.bin\marked hashing.md -o hashing.html" />
+    <Exec WorkingDirectory=".\AltCoinSamples\Documentation" Command="..\..\node_modules\.bin\marked mining.md -o mining.html" />
+    <Exec WorkingDirectory=".\Ruby" Command="..\node_modules\.bin\marked hashing.md -o hashing.html" />
+    <Exec WorkingDirectory=".\Ruby" Command="..\node_modules\.bin\marked mining.md -o mining.html" />
   </Target>
   <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
     <!-- Create installer -->
