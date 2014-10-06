@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mining", "Mining\Mining.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{F74D6BE0-C59D-44FD-9443-CE29384583B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{18C03C3F-9AE9-4855-A7A7-E378E25505DC}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\hashing.md = Documentation\hashing.md
+		Documentation\hashing.png = Documentation\hashing.png
+		Documentation\hashingresult.png = Documentation\hashingresult.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
