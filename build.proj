@@ -11,6 +11,7 @@
   <Target Name="RubyScripts">
     <!-- Check Ruby scripts for syntax errors -->
     <!-- Requires: Ruby -->
+    <Exec Command="rake" />
   </Target>
   <Target Name="HelpFiles">
     <!-- Build PDF help files from Markdown source -->
