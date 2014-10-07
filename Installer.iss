@@ -39,5 +39,9 @@ Source: "Ruby\mining.html"; DestDir: "{app}\Ruby"; Components: ruby
 
 [Icons]
 Name: "{group}\Hashing"; Filename: "{app}\WPF\Hashing.exe"
+Name: "{group}\Hashing Instructions"; Filename: "{app}\WPF\hashing.html"
+Name: "{group}\Hashing Instructions (Ruby)"; Filename: "{app}\Ruby\hashing.html"; Flags: createonlyiffileexists
 Name: "{group}\Mining"; Filename: "{app}\WPF\Mining.exe"
+Name: "{group}\Mining Instructions"; Filename: "{app}\WPF\mining.html"
+Name: "{group}\Mining Instructions (Ruby)"; Filename: "{app}\Ruby\mining.html"; Flags: createonlyiffileexists
 Name: "{group}\Uninstall AltCoin Samples"; Filename: "{uninstallexe}"
