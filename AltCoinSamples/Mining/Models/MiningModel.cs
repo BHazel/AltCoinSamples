@@ -9,6 +9,7 @@
 namespace BWHazel.Apps.AltCoinSamples.Mining.Models
 {
     using System;
+    using System.Globalization;
     using System.Numerics;
     using System.Security.Cryptography;
     using System.Text;
@@ -47,13 +48,17 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
             while (blockSolved == false)
             {
                 string inputWithNonce = string.Concat(input, nonce.ToString());
-                hash = this.GetHexadecimalHash(inputWithNonce);
+                byte[] inputWithNonceHash = this.ComputeHash(inputWithNonce);
+                hash = this.GetHexadecimalRepresentation(inputWithNonceHash);
                 nonce += 1;
 
                 if (limitTarget == true)
                 {
-                    BigInteger targetNumeric = BigInteger.Parse(target);
-                    BigInteger hashNumeric = BigInteger.Parse(hash);
+                    string initialZeroTarget = string.Concat("0", target);
+                    string initialZeroHash = string.Concat("0", hash);
+
+                    BigInteger targetNumeric = BigInteger.Parse(initialZeroTarget, NumberStyles.HexNumber);
+                    BigInteger hashNumeric = BigInteger.Parse(initialZeroHash, NumberStyles.HexNumber);
                     if (hashNumeric < targetNumeric)
                     {
                         blockSolved = true;
@@ -82,15 +87,14 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.Models
         }
 
         /// <summary>
-        /// Computes the hash for the specified text.
+        /// Converts the hash from byte array into its hexadecimal representation.
         /// </summary>
-        /// <param name="input">The text.</param>
+        /// <param name="hash">The hash.</param>
         /// <returns>The hexadecimal representation of the hash as a string.</returns>
-        private string GetHexadecimalHash(string input)
+        public string GetHexadecimalRepresentation(byte[] hash)
         {
-            byte[] hashBytes = this.ComputeHash(input);
             StringBuilder hexadecimalHashBuilder = new StringBuilder();
-            foreach (byte b in hashBytes)
+            foreach (byte b in hash)
             {
                 hexadecimalHashBuilder.AppendFormat("{0:x2}", b);
             }

@@ -12,6 +12,7 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Security.Cryptography;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Windows;
     using BWHazel.Apps.AltCoinSamples.Common;
@@ -254,31 +255,30 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
                     this.solveBlocksCommand = new Command((data) =>
                     {
                         this.SolvedBlocks.Clear();
-                        if (this.TargetType == TargetType.Auto)
+                        try
                         {
-                            this.Target = this.GetAutoTarget();
-                        }
-                        else if (this.TargetType == TargetType.Text)
-                        {
-                            this.Target = Convert.ToBase64String(this.mining.ComputeHash(this.Target));
-                        }
-
-                        Task.Run(() =>
-                        {
-                            this.ControlsEnabled = false;
-                            bool isLimitTarget = this.TargetType != TargetType.Zero;
-                            Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
-                            Action<BlockInfo> collectionAddMethod = this.SolvedBlocks.Add;
-                            for (int i = 1; i <= this.Blocks; i++)
+                            this.CheckTarget();
+                            Task.Run(() =>
                             {
-                                solvedBlock = this.mining.SolveBlock(solvedBlock.Item1, this.Target, isLimitTarget);
-                                BlockInfo solvedBlockInfo = new BlockInfo(i, solvedBlock.Item1, solvedBlock.Item2);
-                                Application.Current.Dispatcher.BeginInvoke(collectionAddMethod, solvedBlockInfo);
-                                this.CurrentBlock = i;
-                            }
+                                this.ControlsEnabled = false;
+                                bool isLimitTarget = this.TargetType != TargetType.Zero;
+                                Tuple<string, long> solvedBlock = new Tuple<string, long>(this.InputText, 0);
+                                Action<BlockInfo> collectionAddMethod = this.SolvedBlocks.Add;
+                                for (int i = 1; i <= this.Blocks; i++)
+                                {
+                                    solvedBlock = this.mining.SolveBlock(solvedBlock.Item1, this.Target, isLimitTarget);
+                                    BlockInfo solvedBlockInfo = new BlockInfo(i, solvedBlock.Item1, solvedBlock.Item2);
+                                    Application.Current.Dispatcher.BeginInvoke(collectionAddMethod, solvedBlockInfo);
+                                    this.CurrentBlock = i;
+                                }
 
-                            this.ControlsEnabled = true;
-                        });
+                                this.ControlsEnabled = true;
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Mining", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     });
                 }
 
@@ -323,13 +323,42 @@ namespace BWHazel.Apps.AltCoinSamples.Mining.ViewModels
         /// replacing the first characters.
         /// </remarks>
         /// <returns>The target when the <see cref="TargetType"/> is set to Auto.</returns>
-        private string GetAutoTarget()
+        private string GetAutoHash()
         {
-            string dateHash = Convert.ToBase64String(this.mining.ComputeHash(DateTime.Now.ToString()));
+            byte[] dateHash = this.mining.ComputeHash(DateTime.Now.ToString());
+            string dateHashHex = this.mining.GetHexadecimalRepresentation(dateHash);
             Random random = new Random(DateTime.Now.Millisecond);
-            int zeros = random.Next(5);
+            int zeros = random.Next(1, 5);
             string zeroString = string.Empty.PadLeft(zeros, '0');
-            return dateHash.Replace(dateHash.Substring(0, zeros), zeroString);
+            return dateHashHex.Replace(dateHashHex.Substring(0, zeros), zeroString);
+        }
+
+        /// <summary>
+        /// Check the target for errors and set its value if required.
+        /// </summary>
+        private void CheckTarget()
+        {
+            if (this.TargetType != TargetType.Auto && this.Target == string.Empty)
+            {
+                this.TargetType = TargetType.Auto;
+            }
+
+            if (this.TargetType == TargetType.Auto)
+            {
+                this.Target = this.GetAutoHash();
+            }
+            else if (this.TargetType == TargetType.Text)
+            {
+                byte[] targetHash = this.mining.ComputeHash(this.Target);
+                this.Target = this.mining.GetHexadecimalRepresentation(targetHash);
+            }
+            else if (this.TargetType == TargetType.Zero)
+            {
+                if (!Regex.IsMatch(this.Target, @"^0*$"))
+                {
+                    throw new Exception("Invalid target for current mode.");
+                }
+            }
         }
     }
 }

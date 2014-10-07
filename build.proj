@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="All" DependsOnTargets="Installer">
+    <!-- Create installer -->
+  </Target>
+  <Target Name="WpfApps">
+    <!-- Build WPF apps -->
+    <MSBuild Projects=".\AltCoinSamples\Hashing\Hashing.csproj" Properties="Configuration=Release" />
+    <MSBuild Projects=".\AltCoinSamples\Mining\Mining.csproj" Properties="Configuration=Release" />
+  </Target>
+  <Target Name="RubyScripts">
+    <!-- Check Ruby scripts for syntax errors -->
+    <!-- Requires: Ruby -->
+    <Exec Command="rake" />
+  </Target>
+  <Target Name="HelpFiles">
+    <!-- Build PDF help files from Markdown source -->
+    <!-- Requires: Node.js -->
+    <Exec Command="npm install marked" />
+    <Exec WorkingDirectory=".\AltCoinSamples\Documentation" Command="..\..\node_modules\.bin\marked hashing.md -o hashing.html" />
+    <Exec WorkingDirectory=".\AltCoinSamples\Documentation" Command="..\..\node_modules\.bin\marked mining.md -o mining.html" />
+    <Exec WorkingDirectory=".\Ruby" Command="..\node_modules\.bin\marked hashing.md -o hashing.html" />
+    <Exec WorkingDirectory=".\Ruby" Command="..\node_modules\.bin\marked mining.md -o mining.html" />
+  </Target>
+  <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
+    <!-- Create installer -->
+    <!-- Requires: Inno Setup -->
+  </Target>
+</Project>
