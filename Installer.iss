@@ -4,7 +4,11 @@
 
 [Setup]
 AppName=AltCoin Samples
+AppPublisher=B W Hazel
+AppPublisherURL=http://bwhazel.uk
 AppVersion=1.0
+AppCopyright=Copyright (c) Benedict W. Hazel, 2014
+UninstallDisplayName=AltCoin Samples
 DefaultDirName={pf}\B W Hazel\AltCoin Samples
 DefaultGroupName=B W Hazel\AltCoin Samples
 
