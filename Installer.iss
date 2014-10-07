@@ -23,6 +23,11 @@ Source: "AltCoinSamples\Hashing\bin\Release\Hashing.exe"; DestDir: "{app}\WPF"; 
 Source: "AltCoinSamples\Hashing\bin\Release\Hashing.exe.config"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Mining\bin\Release\Mining.exe"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Mining\bin\Release\Mining.exe.config"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Documentation\hashing.html"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Documentation\hashing.png"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Documentation\hashingresult.png"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Documentation\mining.html"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Documentation\miningresult.png"; DestDir: "{app}\WPF"; Components: samples
 Source: "Ruby\hashing.rb"; DestDir: "{app}\Ruby"; Components: ruby
 Source: "Ruby\mining.rb"; DestDir: "{app}\Ruby"; Components: ruby
 Source: "Ruby\hashing.html"; DestDir: "{app}\Ruby"; Components: ruby
