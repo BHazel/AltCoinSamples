@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <InnoSetupExe>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</InnoSetupExe>
+  </PropertyGroup>
   <Target Name="All" DependsOnTargets="Installer">
     <!-- Create installer -->
   </Target>
@@ -25,5 +28,6 @@
   <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
     <!-- Create installer -->
     <!-- Requires: Inno Setup -->
+    <Exec Command="$(InnoSetupExe) Installer.iss" />
   </Target>
 </Project>
