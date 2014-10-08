@@ -1,15 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <InnoSetupExe>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</InnoSetupExe>
+    <InnoSetupCompiler>&quot;C:\Program Files (x86)\Inno Setup 5\ISCC.exe&quot;</InnoSetupCompiler>
   </PropertyGroup>
-  <Target Name="All" DependsOnTargets="Installer">
-    <!-- Create installer -->
-  </Target>
+  <Target Name="All" DependsOnTargets="Installer" />
   <Target Name="WpfApps">
     <!-- Build WPF apps -->
-    <MSBuild Projects=".\AltCoinSamples\Hashing\Hashing.csproj" Properties="Configuration=Release" />
-    <MSBuild Projects=".\AltCoinSamples\Mining\Mining.csproj" Properties="Configuration=Release" />
+    <MSBuild Projects=".\AltCoinSamples\AltCoinSamples.sln" Properties="Configuration=Release" />
   </Target>
   <Target Name="RubyScripts">
     <!-- Check Ruby scripts for syntax errors -->
@@ -17,7 +14,7 @@
     <Exec Command="rake" />
   </Target>
   <Target Name="HelpFiles">
-    <!-- Build PDF help files from Markdown source -->
+    <!-- Build HTML help files from Markdown source -->
     <!-- Requires: Node.js -->
     <Exec Command="npm install marked" />
     <Exec WorkingDirectory=".\AltCoinSamples\Documentation" Command="..\..\node_modules\.bin\marked hashing.md -o hashing.html" />
@@ -25,9 +22,28 @@
     <Exec WorkingDirectory=".\Ruby" Command="..\node_modules\.bin\marked hashing.md -o hashing.html" />
     <Exec WorkingDirectory=".\Ruby" Command="..\node_modules\.bin\marked mining.md -o mining.html" />
   </Target>
-  <Target Name="Installer" DependsOnTargets="WpfApps,RubyScripts,HelpFiles">
+  <Target Name="Installer" DependsOnTargets="WpfApps;RubyScripts;HelpFiles">
     <!-- Create installer -->
     <!-- Requires: Inno Setup -->
-    <Exec Command="$(InnoSetupExe) Installer.iss" />
+    <Exec Command="$(InnoSetupCompiler) Installer.iss" />
+  </Target>
+
+  <Target Name="Clean" DependsOnTargets="CleanWpfApps;CleanHelpFiles;CleanInstaller" />
+  <Target Name="CleanWpfApps">
+    <!-- Clean WPF apps -->
+    <MSBuild Projects=".\AltCoinSamples\AltCoinSamples.sln" Targets="Clean" Properties="Configuration=Release" />
+  </Target>
+  <Target Name="CleanHelpFiles">
+    <!-- Clean HTML help files -->
+    <!-- Requires: Node.js -->
+    <Delete Files=".\AltCoinSamples\Documentation\hashing.html" />
+    <Delete Files=".\AltCoinSamples\Documentation\mining.html" />
+    <Delete Files=".\Ruby\hashing.html" />
+    <Delete Files=".\Ruby\mining.html" />
+    <Exec Command="npm uninstall marked" />
+  </Target>
+  <Target Name="CleanInstaller">
+    <Delete Files=".\Installer\setup.exe" />
+    <RemoveDir Directories="Installer" />
   </Target>
 </Project>

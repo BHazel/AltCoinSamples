@@ -11,6 +11,7 @@ AppCopyright=Copyright (c) Benedict W. Hazel, 2014
 UninstallDisplayName=AltCoin Samples
 DefaultDirName={pf}\B W Hazel\AltCoin Samples
 DefaultGroupName=B W Hazel\AltCoin Samples
+OutputDir=Installer
 
 [Types]
 Name: "typical"; Description: "Typical installation"
