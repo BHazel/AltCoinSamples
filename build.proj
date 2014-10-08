@@ -1,4 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  AltCoin Samples Build Script
+  Copyright (c) Benedict W. Hazel, 2014
+  
+  Dependencies:
+    Ruby - Ruby script syntax check
+    Node.js - HTML help file creation
+    Inno Setup - Installer creation
+-->
+  
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <InnoSetupCompiler>&quot;C:\Program Files (x86)\Inno Setup 5\ISCC.exe&quot;</InnoSetupCompiler>
