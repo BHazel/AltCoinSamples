@@ -32,6 +32,7 @@ Source: "AltCoinSamples\Documentation\hashing.html"; DestDir: "{app}\WPF"; Compo
 Source: "AltCoinSamples\Documentation\hashing.png"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Documentation\hashingresult.png"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Documentation\mining.html"; DestDir: "{app}\WPF"; Components: samples
+Source: "AltCoinSamples\Documentation\mining.png"; DestDir: "{app}\WPF"; Components: samples
 Source: "AltCoinSamples\Documentation\miningresult.png"; DestDir: "{app}\WPF"; Components: samples
 Source: "Ruby\hashing.rb"; DestDir: "{app}\Ruby"; Components: ruby
 Source: "Ruby\mining.rb"; DestDir: "{app}\Ruby"; Components: ruby
